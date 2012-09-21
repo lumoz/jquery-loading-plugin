@@ -10,7 +10,7 @@ Set plugin:
 
 View loading:
 
-	$('#example'').loading('show');
+	$('#example').loading('show');
 
 Close loading:
 
