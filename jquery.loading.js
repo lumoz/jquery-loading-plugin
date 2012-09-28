@@ -1,8 +1,8 @@
 /**
- * Library for CodeIgniter form validation in Ajax.
+ * jQuery Plugin view / hide loading message.
  * @author	Luigi Mozzillo <luigi@innato.it>
  * @link	http://innato.it
- * @version 1.0
+ * @version 1.01
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,9 +43,8 @@
 				this.options = $.extend({}, $.fn.loading.defaults, options)
 			if (this.options.show)
 				this.show();
-			this.loadiv 	= $('<div'
-				+ (this.options.class ? ' class="'+ this.options.class +'"' : '')
-				+' />');
+			this.$div = $('<div />')
+				.addClass(this.options.class ? this.options.class : '');
 		}
 
 		// Show loading
@@ -67,16 +66,16 @@
 					, left:		this.$element.position().left
 					, mtop:		parseInt(this.$element.css('marginTop'))
 					, mleft:	parseInt(this.$element.css('marginLeft'))
-					, width:	this.$element.outerWidth() +'px'
-					, height:	this.$element.outerHeight() +'px'
+					, width:	this.$element.outerWidth()
+					, height:	this.$element.outerHeight()
 				};
 			}
 			// Define CSS
-			this.loadiv.css({
+			this.$div.css({
 					position:				'absolute'
 					, display:				'block'
-					, top:					(this.info.top + this.info.mtop) +'px'
-					, left:					(this.info.left + this.info.mleft) +'px'
+					, top:					(this.info.top + this.info.mtop)
+					, left:					(this.info.left + this.info.mleft)
 					, width:				this.info.width
 					, height:				this.info.height
 	                , opacity: 				0
@@ -92,8 +91,8 @@
 		// Close loading
 		, close: function() {
 			var that = this;
-			this.loadiv.fadeOut(this.options.fade_out_speed, function() {
-				that.loadiv.remove()
+			this.$div.fadeOut(this.options.fade_out_speed, function() {
+				that.$div.remove()
 			});
 		}
 
@@ -131,7 +130,7 @@
 		, color:			'white'
 		, opacity:			0.8
 		, class:			''
-		, fade_in_speed:	'slow'
+		, fade_in_speed:	'fast'
 		, fade_out_speed:	'fast'
 		, inherit:			false
 		, show:				false
