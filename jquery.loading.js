@@ -2,7 +2,7 @@
  * jQuery Plugin view / hide loading message.
  * @author	Luigi Mozzillo <luigi@innato.it>
  * @link	http://innato.it
- * @version 1.01
+ * @version 1.0.2
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -78,14 +78,14 @@
 					, left:					(this.info.left + this.info.mleft)
 					, width:				this.info.width
 					, height:				this.info.height
-	                , opacity: 				0
+	                , opacity: 				this.options.opacity
 	                , background:			this.options.color
 	                						+' url('+ this.options.image +')'
 	                , backgroundPosition:	this.options.image_position
 	                , backgroundRepeat:		this.options.image_repeat
 				})
 				.appendTo('body')
-				.fadeTo(this.options.fade_in_speed, this.options.opacity);
+				.show();
 		}
 
 		// Close loading
@@ -130,8 +130,7 @@
 		, color:			'white'
 		, opacity:			0.8
 		, class:			''
-		, fade_in_speed:	'fast'
-		, fade_out_speed:	'fast'
+		, fadeout_speed:	'fast'
 		, inherit:			false
 		, show:				false
 	}

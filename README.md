@@ -24,8 +24,7 @@ Close loading:
 - `color`: (string) target background color;
 - `opacity`: (number) opacity value - 0 to 1;
 - `class`: (string) class for loading div;
-- `fade_in_speed`: (string | number) speed of fade in effect - slow | fast | value in milliseconds;
-- `fade_out_speed`: (string | number) speed of fade out effect - slow | fast | value in milliseconds;
+- `fadeout_speed`: (string | number) speed of fade out effect - slow | fast | value in milliseconds;
 - `inherit`: (bool) inherits options from a previous call;
 - `show`: (bool) view loading after init.
 
@@ -38,8 +37,7 @@ Default options:
 		, color:			'white'
 		, opacity:			0.8
 		, class:			''
-		, fade_in_speed:	'slow'
-		, fade_out_speed:	'fast'
+		, fadeout_speed:	'fast'
 		, inherit:			false
 		, show:				false
 	}
@@ -87,8 +85,7 @@ Show different loading at another item.
 		image:				'/assets/images/loading_2.gif'
 		, color:			'red'
 		, class:			'class_name'
-		, fade_in_speed:	0
-		, fade_out_speed:	0
+		, fadeout_speed:	0
 		, show: 			true
 	});
 	
