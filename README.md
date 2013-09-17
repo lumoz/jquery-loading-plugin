@@ -14,32 +14,34 @@ View loading:
 
 Close loading:
 
-	$('#example').loading('close');
+	$('#example').loading('hide');
 
 ###Options
 
 - `image`: (path) image path of loading image;
-- `image_position`: (string) position of image background;
-- `image_repeat`: (string) repeat of image background - repeat | no-repeat | repeat-x | repeat-y;
+- `imagePosition`: (string) position of image background;
+- `imageRepeat`: (string) repeat of image background - repeat | no-repeat | repeat-x | repeat-y;
 - `color`: (string) target background color;
 - `opacity`: (number) opacity value - 0 to 1;
 - `class`: (string) class for loading div;
-- `fadeout_speed`: (string | number) speed of fade out effect - slow | fast | value in milliseconds;
+- `fadeoutSpeed`: (string | number) speed of fade out effect - slow | fast | value in milliseconds;
 - `inherit`: (bool) inherits options from a previous call;
 - `show`: (bool) view loading after init.
+- `zIndex`: (integer) z-index css value.
 
 Default options:
 
 	var options = {
 		image:		 		'images/loading.gif'
-		, image_position:	'50% 50%'
-		, image_repeat:		'no-repeat'
+		, imagePosition:	'50% 50%'
+		, imageRepeat:		'no-repeat'
 		, color:			'white'
 		, opacity:			0.8
 		, class:			''
-		, fadeout_speed:	'fast'
+		, fadeoutSpeed:		'fast'
 		, inherit:			false
 		, show:				false
+		, zIndex:			999
 	}
 
 
@@ -77,7 +79,7 @@ Show loading at content item.
 
 Close previous loading.
 	
-	$('#content').loading('close');
+	$('#content').loading('hide');
 
 Show different loading at another item.
 
@@ -85,7 +87,7 @@ Show different loading at another item.
 		image:				'/assets/images/loading_2.gif'
 		, color:			'red'
 		, class:			'class_name'
-		, fadeout_speed:	0
+		, fadeoutSpeed:		0
 		, show: 			true
 	});
 	
@@ -95,5 +97,5 @@ Close loading after 3 seconds.
 
 Show different loading at another item yet (with previous options).
 
-	$('#login_form').loading('store');
-	$('#register_form').loading('show');
+	$('#loginForm').loading('store');
+	$('#registerForm').loading('show');

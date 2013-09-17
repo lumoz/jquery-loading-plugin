@@ -2,7 +2,7 @@
  * jQuery Plugin view / hide loading message.
  * @author	Luigi Mozzillo <luigi@innato.it>
  * @link	http://innato.it
- * @version 1.0.2
+ * @version 1.0.4
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,35 +21,73 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://gnu.org/licenses/>.
  */
-!function($) {
+ ! function($) {
+
 	'use strict';
 
 	var Loading = function(element, options) {
 		this.init(element, options)
 	}
 
+	// --------------------------------------------------------------------------
+
 	Loading.prototype = {
 
+		/**
+		 * Constructor.
+		 *
+		 */
 		constructor: Loading
 
-		// Initialize item
+		// -------------------------------------
+
+		/**
+		 * Initialize item.
+		 *
+		 * @param  string element
+		 * @param  object options
+		 * @return void
+		 */
 		, init: function(element, options) {
-			if (!$(element).length)
+			if ( ! $(element).length) {
 				element = document;
+			}
+
 			this.element	= element;
 			this.$element	= $(element);
-			if (!options)	this.inherit();
-			if (!this.options)
+
+			if ( ! options) {
+				this.inherit();
+			}
+
+			if ( ! this.options) {
 				this.options = $.extend({}, $.fn.loading.defaults, options)
-			if (this.options.show)
+			}
+
+			if (this.options.show) {
 				this.show();
+			}
+
 			this.$div = $('<div />')
-				.addClass(this.options.class ? this.options.class : '');
+				.addClass(this.options.class
+					? this.options.class
+					: ''
+				)
+				.css({
+					'z-index': this.options.zIndex
+				});
 		}
 
-		// Show loading
+		// -------------------------------------
+
+		/**
+		 * Show loading spinner.
+		 *
+		 * @return void
+		 */
 		, show: function() {
 			if (this.element == document) {
+
 				// Show in center of page
 				this.info = {
 					top:		0
@@ -60,16 +98,18 @@
 					, height:	'100%'
 				};
 			} else {
+
 				// Show on item
 				this.info = {
-					top:		this.$element.position().top
-					, left:		this.$element.position().left
+					top:		this.$element.offset().top
+					, left:		this.$element.offset().left
 					, mtop:		parseInt(this.$element.css('marginTop'))
 					, mleft:	parseInt(this.$element.css('marginLeft'))
 					, width:	this.$element.outerWidth()
 					, height:	this.$element.outerHeight()
 				};
 			}
+
 			// Define CSS
 			this.$div.css({
 					position:				'absolute'
@@ -81,60 +121,108 @@
 	                , opacity: 				this.options.opacity
 	                , background:			this.options.color
 	                						+' url('+ this.options.image +')'
-	                , backgroundPosition:	this.options.image_position
-	                , backgroundRepeat:		this.options.image_repeat
+	                , backgroundPosition:	this.options.imagePosition
+	                , backgroundRepeat:		this.options.imageRepeat
 				})
 				.appendTo('body')
 				.show();
 		}
 
-		// Close loading
-		, close: function() {
+		// -------------------------------------
+
+		/**
+		 * Hide loading.
+		 *
+		 * @return void
+		 */
+		, hide: function() {
 			var that = this;
-			this.$div.fadeOut(this.options.fade_out_speed, function() {
+			this.$div.fadeOut(this.options.fadeoutSpeed, function() {
 				that.$div.remove()
 			});
 		}
 
-		// Inherit stored options (if exists)
-		, inherit: function() {
-			var options = $(document).data('loading_options');
-			this.options = !options ? this.options : options;
+		// -------------------------------------
+
+		/**
+		 * Hide loading (alias).
+		 *
+		 * @return void
+		 */
+		, close: function() {
+			this.hide();
 		}
 
-		// Store options (with inherit option = true)
+		// -------------------------------------
+
+		/**
+		 * Inherit stored options (if exists).
+		 *
+		 * @return void
+		 */
+		, inherit: function() {
+			var options = $(document).data('loadingOptions');
+			this.options = ! options ? this.options : options;
+		}
+
+		// -------------------------------------
+
+		/**
+		 * Store options (with inherit option = true).
+		 *
+		 * @return void
+		 */
 		, store: function() {
-			$(document).data('loading_options', $.extend(this.options, {
+			$(document).data('loadingOptions', $.extend(this.options, {
 				inherit: true
 			}));
 		}
 
 	}
 
-	// Create plugin
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Create plugin.
+	 *
+	 * @param  object option
+	 * @return object
+	 */
 	$.fn.loading = function (option) {
 		return this.each(function () {
 			var $this = $(this)
 				, data = $this.data('loading')
 				, options = typeof option == 'object' && option
-			if (!data) $this.data('loading', (data = new Loading(this, options)))
+			if ( ! data) $this.data('loading', (data = new Loading(this, options)))
 			if (typeof option == 'string') data[option]();
 			return $(this);
 		})
 	};
+
 	$.fn.loading.Constructor = Loading
 	$.fn.loading.defaults = {
 		image:		 		'images/loading.gif'
-		, image_position:	'50% 50%'
-		, image_repeat:		'no-repeat'
+		, imagePosition:	'50% 50%'
+		, imageRepeat:		'no-repeat'
 		, color:			'white'
 		, opacity:			0.8
 		, class:			''
-		, fadeout_speed:	'fast'
+		, fadeoutSpeed:	'fast'
 		, inherit:			false
 		, show:				false
+		, zIndex:			999
 	}
-	// Empty call document item
-	$.loading = function(options) { $(document).loading(options); };
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Empty call document item.
+	 *
+	 * @param  object options
+	 * @return void
+	 */
+	$.loading = function(options) {
+		$(document).loading(options);
+	};
 
 }(window.jQuery);
